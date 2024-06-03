@@ -1,3 +1,2 @@
 cloudflare_api_token = "123"
 cloudflare_zone_id   = "123"
-domain_name          = "ashis.info"
