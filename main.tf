@@ -47,7 +47,7 @@ resource "aws_s3_object" "website_files" {
 resource "cloudflare_record" "www" {
   zone_id = var.cloudflare_zone_id
   name    = "www"
-  value   = aws_s3_bucket.nextjs_website.website_domain
+  value   = aws_s3_bucket.nextjs_website.website_endpoint
   type    = "CNAME"
   ttl     = 3600
   proxied = true
