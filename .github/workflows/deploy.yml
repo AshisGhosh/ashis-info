@@ -11,7 +11,11 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
+
+    - name: Install pnpm
+      run: |
+        npm install -g pnpm
 
     - name: Set up OpenTofu
       run: |
@@ -21,7 +25,7 @@ jobs:
         rm install-opentofu.sh
 
     - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v2
+      uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -49,15 +53,15 @@ jobs:
           -auto-approve
 
     - name: Install Node.js
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: '20'
 
-    - name: Install dependencies
-      run: npm install
+    - name: Install dependencies using pnpm
+      run: pnpm install
 
-    - name: Build & Export Next.js application
-      run: npm run build
+    - name: Build and export Next.js application
+      run: pnpm build
 
     - name: Sync files to S3
       run: aws s3 sync out/ s3://ashis-info-website --delete
