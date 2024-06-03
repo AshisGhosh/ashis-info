@@ -10,7 +10,7 @@ export default function Home() {
 
       <ModeToggle />
       <div className="flex items-center justify-center">
-        Hi, I'm Ashis
+        Hi, I&apos;m Ashis
       </div>
       <FooterDrawer />
 
