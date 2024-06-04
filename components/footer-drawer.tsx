@@ -31,7 +31,7 @@ export function FooterDrawer() {
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>Feel free to reach out</DrawerTitle>
-                    <DrawerDescription>This action cannot be undone.</DrawerDescription>
+                    <DrawerDescription>Site is currently under construction - reach out <a className="rounded-full bg-primary text-secondary py-1 px-2 hover:bg-primary/50" href="https://bio.site/ashis">here</a></DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter className="flex items-center justify-center">
                     <DrawerClose>
