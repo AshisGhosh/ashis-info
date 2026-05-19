@@ -13,6 +13,16 @@ provider "cloudflare" {
 }
 
 terraform {
+  required_providers {
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 5.0"
+    }
+    cloudflare = {
+      source  = "cloudflare/cloudflare"
+      version = "~> 4.0"
+    }
+  }
   backend "s3" {
     bucket = "my-terraform-state-bucket-851725260644"
     key    = "terraform/state"
@@ -109,6 +119,26 @@ resource "aws_cloudfront_origin_access_identity" "origin_access_identity" {
   comment = "Access to S3 bucket"
 }
 
+resource "aws_cloudfront_function" "url_rewrite" {
+  provider = aws.us-west-2
+  name    = "ashis-info-url-rewrite"
+  runtime = "cloudfront-js-2.0"
+  comment = "Rewrite subroute URIs to serve index.html (e.g. /writing/ -> /writing/index.html)"
+  publish = true
+  code    = <<-EOT
+    function handler(event) {
+      var request = event.request;
+      var uri = request.uri;
+      if (uri.endsWith('/')) {
+        request.uri += 'index.html';
+      } else if (!uri.includes('.')) {
+        request.uri += '/index.html';
+      }
+      return request;
+    }
+  EOT
+}
+
 resource "aws_cloudfront_distribution" "cdn" {
   provider = aws.us-west-2
   origin {
@@ -143,6 +173,11 @@ resource "aws_cloudfront_distribution" "cdn" {
     min_ttl                = 0
     default_ttl            = 3600
     max_ttl                = 86400
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.url_rewrite.arn
+    }
   }
 
   restrictions {

@@ -78,7 +78,7 @@ These are **unlinked + noindex**: the homepage will not link to them, and they s
 Decided shape:
 
 1. **Content lives in `/content/{research,writing,projects}/*.{md,mdx}`.** Each file has frontmatter (`title`, `date`, optional `summary`, optional `link` for external posts, optional `publisher` for the venue badge). Body is the post or notes. **Always wrap `title` and `summary` in double quotes** so colons or other YAML-meaningful characters in the value don't break parsing. If `link` is set and `publisher` isn't, the lib will auto-infer from common hosts (forbes.com, substack.com, medium.com, github.com); add `publisher` explicitly for anything else or for a more precise label (e.g. `"Forbes Tech Council"`).
-2. **Routes:** `app/research/page.tsx`, `app/writing/page.tsx`, `app/projects/page.tsx` for the section index. Per-post permalinks via `app/{section}/[slug]/page.tsx` with `generateStaticParams()` reading the content directory at build time.
+2. **Routes:** `app/research/page.tsx`, `app/writing/page.tsx`, `app/projects/page.tsx` for the section index. Per-post permalinks via `app/{section}/[slug]/page.tsx` with `generateStaticParams()` reading the content directory at build time. **Only create the `[slug]` route when at least one internal post exists.** Next 14's static export errors if `generateStaticParams()` returns an empty array, so while every post is external-link-only, the section just needs the index page.
 3. **No-index:** each section's `page.tsx` (and per-post pages) exports
    ```ts
    export const metadata = { robots: { index: false, follow: false } }
