@@ -4,12 +4,12 @@ import { ArrowUpRight } from "lucide-react"
 import { getAllPosts } from "@/lib/content"
 
 export const metadata: Metadata = {
-  title: "Writing",
+  title: "Research",
   robots: { index: false, follow: false },
 }
 
-export default function WritingIndex() {
-  const posts = getAllPosts("writing")
+export default function ResearchIndex() {
+  const posts = getAllPosts("research")
   return (
     <main className="flex min-h-screen flex-col items-center p-12 md:p-24">
       <div className="w-full max-w-2xl">
@@ -19,12 +19,11 @@ export default function WritingIndex() {
         >
           ← Home
         </Link>
-        <h1 className="text-4xl font-bold mt-4">Writing</h1>
+        <h1 className="text-4xl font-bold mt-4">Research</h1>
         <p className="text-muted-foreground mt-3 mb-10 leading-relaxed">
-          Mostly notes on robotics, AI, and the gap between a great demo and
-          something that runs every night. I write to pin down lessons before I
-          forget them. Maybe it saves someone else a few of the dead ends I
-          walked into.
+          Generative models, world models, robotics learning. Side experiments
+          where I dig into a problem until I understand it well enough to write
+          down what I learned.
         </p>
         {posts.length === 0 ? (
           <p className="text-muted-foreground">Nothing here yet.</p>
@@ -69,7 +68,7 @@ export default function WritingIndex() {
                     </a>
                   ) : (
                     <Link
-                      href={`/writing/${p.slug}`}
+                      href={`/research/${p.slug}`}
                       className="block hover:text-primary/70"
                     >
                       {inner}

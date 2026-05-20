@@ -71,23 +71,39 @@ Don't edit infra casually; every CI run applies it.
 - **Don't add dependencies casually.** The bundle is small; new deps need a real reason.
 - **No comments unless the *why* is non-obvious.** Names should carry the *what*.
 
-## Planned: hidden sections (`/research`, `/writing`, `/projects`)
+## Hidden sections (`/research`, `/writing`, `/projects`)
 
-These are **unlinked + noindex**: the homepage will not link to them, and they should be excluded from search engines. Anyone with the URL can still view them.
+These are **unlinked + noindex**: the homepage does not link to them, and they're excluded from search engines via per-page robots metadata and `public/robots.txt`. Anyone with the URL can still view them.
 
-Decided shape:
+Implemented today: `/writing` (index only, all external-link entries) and `/research` (index + `[slug]` post renderer, currently one inline post). `/projects` is not scaffolded yet.
 
-1. **Content lives in `/content/{research,writing,projects}/*.{md,mdx}`.** Each file has frontmatter (`title`, `date`, optional `summary`, optional `link` for external posts, optional `publisher` for the venue badge). Body is the post or notes. **Always wrap `title` and `summary` in double quotes** so colons or other YAML-meaningful characters in the value don't break parsing. If `link` is set and `publisher` isn't, the lib will auto-infer from common hosts (forbes.com, substack.com, medium.com, github.com); add `publisher` explicitly for anything else or for a more precise label (e.g. `"Forbes Tech Council"`).
-2. **Routes:** `app/research/page.tsx`, `app/writing/page.tsx`, `app/projects/page.tsx` for the section index. Per-post permalinks via `app/{section}/[slug]/page.tsx` with `generateStaticParams()` reading the content directory at build time. **Only create the `[slug]` route when at least one internal post exists.** Next 14's static export errors if `generateStaticParams()` returns an empty array, so while every post is external-link-only, the section just needs the index page.
-3. **No-index:** each section's `page.tsx` (and per-post pages) exports
-   ```ts
-   export const metadata = { robots: { index: false, follow: false } }
-   ```
-   and `public/robots.txt` adds `Disallow: /research/`, `/writing/`, `/projects/`.
-4. **No homepage links.** Sections are URL-only. (If a nav is added later, keep these out of it.)
-5. **Suggested deps when this lands:** `gray-matter` for frontmatter, plus either `next-mdx-remote` or `@next/mdx` if MDX is wanted; if posts stay plain markdown, `remark` + `remark-html` is enough.
+### Frontmatter
 
-When implementing, prefer the smallest workable version: get one markdown post rendering through one section before generalizing.
+Each `content/<section>/*.md` file uses YAML frontmatter:
+
+```yaml
+---
+title: "..."          # required, always quote
+date: 2026-05-19      # required
+summary: "..."        # optional, always quote (avoids YAML colon pitfalls)
+link: https://...     # optional. If set, the index card opens this URL directly.
+repo: https://...     # optional. Shown as "Code on GitHub" header on internal posts.
+publisher: "..."      # optional. Renders as a small badge on the index card.
+---
+```
+
+- `link` and body are mutually exclusive in intent: if `link` is set, the entry is treated as an external-link card (no internal permalink built). If the file has a body, an internal permalink at `/<section>/<slug>` is built and the index card opens that.
+- `repo` is purely metadata for the post page header; it doesn't affect index card routing.
+- `publisher` auto-infers from `link` or `repo` host (`forbes.com → Forbes`, `github.com → GitHub`, plus substack/medium). Extend `PUBLISHER_FROM_HOST` in `lib/content.ts` for new venues, or set explicitly for a precise label (e.g. `"Forbes Tech Council"`).
+
+### Lib + routes
+
+- `lib/content.ts` is section-aware: `getAllPosts(section)` and `getPost(section, slug)` for `"writing" | "research" | "projects"`. Markdown is parsed via `gray-matter`, rendered to HTML via `remark` + `remark-html` at build time.
+- Each section has `app/<section>/page.tsx` (index) and exports `metadata.robots = { index: false, follow: false }`. The `[slug]/page.tsx` post renderer is only required when the section has at least one internal post. Next 14's static export errors if `generateStaticParams()` returns an empty array, so for link-only sections (today: `/writing`) the `[slug]` directory should not exist.
+
+### Images for inline posts
+
+Drop them in `public/<section>/<slug>/` and reference them in the markdown as `/<section>/<slug>/<file>.png`. They flow through to `out/<section>/<slug>/<file>.png` via the standard public-folder pass-through.
 
 ## Things to avoid
 
