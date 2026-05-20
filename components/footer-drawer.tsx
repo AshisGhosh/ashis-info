@@ -31,7 +31,7 @@ export function FooterDrawer() {
             <DrawerContent>
                 <DrawerHeader>
                     <DrawerTitle>Feel free to reach out</DrawerTitle>
-                    <DrawerDescription>Site is currently under construction - reach out <a className="rounded-full bg-primary text-secondary py-1 px-2 hover:bg-primary/50" href="https://bio.site/ashis">here</a></DrawerDescription>
+                    <DrawerDescription>Easiest way to reach me is on <a className="rounded-full bg-primary text-secondary py-1 px-2 hover:bg-primary/50" href="https://www.linkedin.com/in/ashisghosh/" rel="noopener noreferrer" target="_blank">LinkedIn</a></DrawerDescription>
                 </DrawerHeader>
                 <DrawerFooter className="flex items-center justify-center">
                     <DrawerClose>
