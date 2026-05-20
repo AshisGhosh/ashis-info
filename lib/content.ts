@@ -15,6 +15,7 @@ export type Post = {
   link?: string
   repo?: string
   publisher?: string
+  status?: string
   hasBody: boolean
 }
 
@@ -60,6 +61,7 @@ function toPost(
     link,
     repo,
     publisher,
+    status: data.status ? String(data.status) : undefined,
     hasBody: content.trim().length > 0,
   }
 }
