@@ -2,6 +2,7 @@ import fs from "node:fs"
 import path from "node:path"
 import matter from "gray-matter"
 import { remark } from "remark"
+import gfm from "remark-gfm"
 import html from "remark-html"
 
 export type Section = "writing" | "research" | "projects"
@@ -90,7 +91,7 @@ export async function getPost(
   if (!fs.existsSync(file)) return null
   const raw = fs.readFileSync(file, "utf8")
   const { data, content } = matter(raw)
-  const processed = await remark().use(html).process(content)
+  const processed = await remark().use(gfm).use(html).process(content)
   return {
     post: toPost(slug, data, content),
     contentHtml: processed.toString(),
