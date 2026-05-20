@@ -16,6 +16,7 @@ export type Post = {
   repo?: string
   publisher?: string
   status?: string
+  icon?: string
   hasBody: boolean
 }
 
@@ -24,6 +25,7 @@ const PUBLISHER_FROM_HOST: Record<string, string> = {
   "substack.com": "Substack",
   "medium.com": "Medium",
   "github.com": "GitHub",
+  "joinsavant.com": "Savant",
 }
 
 function inferPublisher(url?: string): string | undefined {
@@ -62,6 +64,7 @@ function toPost(
     repo,
     publisher,
     status: data.status ? String(data.status) : undefined,
+    icon: data.icon ? String(data.icon) : undefined,
     hasBody: content.trim().length > 0,
   }
 }

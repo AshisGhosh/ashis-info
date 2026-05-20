@@ -4,6 +4,7 @@ date: 2025-12-07
 summary: "An incremental study of action-conditioned world models in a controlled visual environment, from a baseline diffusion transformer through FiLM conditioning, classifier-free guidance, and flow matching, evaluated with KID."
 repo: https://github.com/AshisGhosh/worldgen
 publisher: "GitHub"
+icon: trajectory
 ---
 
 WorldGen explores learning action-conditioned world dynamics from visual observations. The model sees a 64×64 crop of a larger map, receives one of four discrete actions, and predicts the crop that would result from translating 8 pixels in the corresponding direction.

@@ -5,4 +5,5 @@ summary: "Deforming a soft panel with magnetic fields, end to end. Couples elect
 link: https://github.com/AshisGhosh/magitek
 publisher: "GitHub"
 status: "In progress"
+icon: mesh
 ---

@@ -18,7 +18,61 @@ const config = {
       },
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+      },
+      typography: () => ({
+        DEFAULT: {
+          css: {
+            maxWidth: "none",
+            color: "hsl(var(--foreground))",
+            "h1, h2, h3, h4, h5, h6": {
+              fontFamily: "var(--font-serif)",
+              fontWeight: "600",
+              fontVariationSettings: '"WONK" 1, "SOFT" 50, "opsz" 36',
+              color: "hsl(var(--foreground))",
+            },
+            a: {
+              color: "hsl(var(--accent-warm))",
+              textDecorationColor: "hsl(var(--accent-warm))",
+              textUnderlineOffset: "4px",
+              fontWeight: "inherit",
+            },
+            "a:hover": {
+              color: "hsl(var(--foreground))",
+            },
+            strong: { color: "hsl(var(--foreground))" },
+            code: {
+              color: "hsl(var(--foreground))",
+              fontFamily: "var(--font-mono)",
+              fontSize: "0.9em",
+            },
+            pre: {
+              backgroundColor: "hsl(var(--code-bg))",
+              color: "hsl(var(--foreground))",
+              fontFamily: "var(--font-mono)",
+            },
+            "pre code": { color: "inherit" },
+            blockquote: {
+              borderLeftColor: "hsl(var(--accent-warm))",
+              color: "hsl(var(--accent-warm))",
+              fontStyle: "italic",
+              fontFamily: "var(--font-serif)",
+              fontWeight: "400",
+            },
+            "th, td": {
+              borderColor: "hsl(var(--border))",
+            },
+            "thead th": {
+              color: "hsl(var(--foreground))",
+            },
+          },
+        },
+      }),
       colors: {
+        warm: "hsl(var(--accent-warm))",
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
