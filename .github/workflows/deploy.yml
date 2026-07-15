@@ -66,6 +66,14 @@ jobs:
     - name: Sync files to S3
       run: aws s3 sync out/ s3://ashis-info-website --delete
 
+    - name: Invalidate CloudFront cache
+      run: |
+        DIST_ID=$(aws cloudfront list-distributions \
+          --query "DistributionList.Items[?Aliases.Items[?contains(@, 'ashis.info')]].Id | [0]" \
+          --output text)
+        echo "Invalidating CloudFront distribution $DIST_ID"
+        aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths "/*"
+
     - name: Purge Cloudflare Cache
       run: |
         curl -X POST "https://api.cloudflare.com/client/v4/zones/${{ secrets.CLOUDFLARE_ZONE_ID }}/purge_cache" \
