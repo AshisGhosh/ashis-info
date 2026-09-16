@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="1258" viewBox="0 0 680 1258" role="img" aria-labelledby="title desc">
+<title id="title">Architecture comparison and exit-task results</title>
+<desc id="desc">Sequence policy with training-only past-map and pose losses: 46.2% success. Sequence policy reading predicted spatial features via attention: 50.8%. Persistent spatial memory with learned writes and pooled reads: 43.3%. Clearing that memory each step while retaining odometry: 6.2%. All use frames and actions only at inference. Mean results over three trained seeds on 200 fresh confirmation mazes.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#655e64"/></marker></defs>
+<rect width="680" height="1258" rx="14" fill="#fbf8f3"/>
+<g font-family="Arial, Helvetica, sans-serif">
+<text x="28" y="43" font-size="28" fill="#29262a" font-weight="700" text-anchor="start">Where does the memory live?</text>
+<text x="28" y="79" font-size="21" fill="#655e64" font-weight="400" text-anchor="start">All models: frozen visual features + past actions</text>
+<rect x="18" y="105" width="644" height="267" rx="10" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="38" y="140" font-size="23" fill="#29262a" font-weight="700" text-anchor="start">1  Sequence + auxiliary losses</text>
+<text x="640" y="140" font-size="25" fill="#315ca0" font-weight="700" text-anchor="end">46.2%</text>
+<rect x="38" y="169" width="140" height="62" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="108.0" y="207.0" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">History</text>
+<rect x="234" y="169" width="212" height="62" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="340.0" y="207.0" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Transformer</text>
+<rect x="502" y="169" width="138" height="62" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="571.0" y="207.0" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Action</text>
+<path d="M178 200 H229" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M446 200 H497" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M340 231 V251" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<rect x="125" y="258" width="431" height="49" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="340.5" y="289.5" font-size="19" fill="#29262a" font-weight="400" text-anchor="middle">Past-map + pose losses · training only</text>
+<text x="38" y="345" font-size="20" fill="#655e64" font-weight="400" text-anchor="start">Memory lives in the sequence context.</text>
+<rect x="18" y="390" width="644" height="366" rx="10" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="38" y="425" font-size="23" fill="#29262a" font-weight="700" text-anchor="start">2  Sequence + predicted-map read</text>
+<text x="640" y="425" font-size="25" fill="#315ca0" font-weight="700" text-anchor="end">50.8%</text>
+<rect x="38" y="449" width="140" height="60" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="108.0" y="486.0" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">History</text>
+<rect x="234" y="449" width="212" height="60" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="340.0" y="486.0" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Transformer</text>
+<path d="M178 479 H229" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M282 509 V527 H109 V546" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M340 509 V546" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="355" y="537" font-size="17" fill="#655e64" font-weight="400" text-anchor="start">query</text>
+<rect x="38" y="552" width="174" height="70" rx="8" fill="#edf3fa" stroke="#315ca0" stroke-width="1.5"/>
+<text x="125.0" y="581.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Predicted grid</text>
+<text x="125.0" y="606.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">features</text>
+<rect x="270" y="552" width="166" height="70" rx="8" fill="#edf3fa" stroke="#315ca0" stroke-width="1.5"/>
+<text x="353.0" y="581.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Attention</text>
+<text x="353.0" y="606.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">read</text>
+<rect x="502" y="552" width="138" height="70" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="571.0" y="594.0" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Action</text>
+<path d="M212 587 H265" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M436 587 H497" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M109 622 V644" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="6 5"/>
+<rect x="38" y="650" width="602" height="46" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5" stroke-dasharray="6 5"/>
+<text x="339.0" y="680.0" font-size="19" fill="#29262a" font-weight="400" text-anchor="middle">Map + past-map + pose losses · training only</text>
+<text x="38" y="728" font-size="20" fill="#655e64" font-weight="400" text-anchor="start">Grid features are decoded afresh at each step.</text>
+<rect x="18" y="774" width="644" height="386" rx="10" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="38" y="809" font-size="23" fill="#29262a" font-weight="700" text-anchor="start">3  Persistent model-written memory</text>
+<text x="640" y="809" font-size="25" fill="#22685f" font-weight="700" text-anchor="end">43.3%</text>
+<text x="38" y="844" font-size="20" fill="#655e64" font-weight="400" text-anchor="start">Index from past actions + observed frame changes</text>
+<rect x="38" y="867" width="146" height="72" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="111.0" y="897.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Current</text>
+<text x="111.0" y="922.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">observation</text>
+<rect x="239" y="867" width="208" height="72" rx="8" fill="#eaf3ef" stroke="#22685f" stroke-width="1.5"/>
+<text x="343.0" y="897.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Learned write</text>
+<text x="343.0" y="922.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">+ pooled read</text>
+<rect x="502" y="867" width="138" height="72" rx="8" fill="white" stroke="#d8d0c8" stroke-width="1.5"/>
+<text x="571.0" y="910.0" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Action</text>
+<path d="M184 903 H234" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M447 903 H497" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<rect x="239" y="981" width="208" height="63" rx="8" fill="#eaf3ef" stroke="#22685f" stroke-width="1.5"/>
+<text x="343.0" y="1019.5" font-size="20" fill="#29262a" font-weight="400" text-anchor="middle">Spatial memory M</text>
+<path d="M384 939 V976" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<path d="M297 981 V944" fill="none" stroke="#655e64" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="468" y="1002" font-size="18" fill="#22685f" font-weight="400" text-anchor="start">Carry across</text>
+<text x="468" y="1027" font-size="18" fill="#22685f" font-weight="400" text-anchor="start">steps</text>
+<text x="38" y="1077" font-size="19" fill="#655e64" font-weight="400" text-anchor="start">Action uses observation + written cell + global pool.</text>
+<rect x="38" y="1096" width="602" height="46" rx="7" fill="#f4ece2" stroke="#d4b38a" stroke-width="1.5"/>
+<text x="52" y="1126" font-size="18" fill="#29262a" font-weight="400" text-anchor="start">Reset control: clear M each step; retain odometry.</text>
+<text x="624" y="1127" font-size="23" fill="#a96515" font-weight="700" text-anchor="end">6.2%</text>
+<text x="28" y="1195" font-size="20" fill="#655e64" font-weight="400" text-anchor="start">Exit-task success · 200 confirmation mazes · 3 seeds</text>
+<text x="28" y="1229" font-size="20" fill="#655e64" font-weight="400" text-anchor="start">Solid arrows: inference. Dashed branches: training only.</text>
+</g></svg>

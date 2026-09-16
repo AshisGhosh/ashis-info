@@ -1,0 +1,49 @@
+{
+  "interior": {
+    "dataset": "data/val_13.h5",
+    "episode": 0,
+    "seed": 50000,
+    "step": 207,
+    "pose": [
+      6,
+      7,
+      2
+    ],
+    "goal": [
+      6,
+      8
+    ],
+    "visible_goal_pixels": 1200,
+    "renderer": "108be67",
+    "image_size": 96,
+    "fov_deg": 120,
+    "renderer_sha256": "502412e5d149393d1457efb8b848d01badecc2d3ac111ba3934dfabd917ca355"
+  },
+  "exit": {
+    "dataset": "data/val_13_exit_u.h5",
+    "episode": 0,
+    "seed": 50000,
+    "step": 289,
+    "pose": [
+      10,
+      12,
+      1
+    ],
+    "goal": [
+      12,
+      12
+    ],
+    "visible_goal_pixels": 306,
+    "renderer": "working tree",
+    "image_size": 96,
+    "fov_deg": 120,
+    "renderer_sha256": "2a1dda06c13d984df7a7c76e5e1dbf8c5602261226aab0668b2b92b81528a89d"
+  },
+  "note": "Environment illustrations re-render saved validation poses; these are not confirmation model rollouts. Reference maps are not policy inputs.",
+  "architecture_sources": [
+    "src/world_maze/models/transformer_v5.py",
+    "src/world_maze/models/neural_map_honest.py",
+    "outputs/runs/exit_pp_u_s42/config.json",
+    "outputs/runs/v8_base_exit_s42/config.json"
+  ]
+}

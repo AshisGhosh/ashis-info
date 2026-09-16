@@ -10,6 +10,10 @@ I started World Maze with a small question: can predicting a map teach a visual 
 
 The testbed was a procedurally generated maze. A policy imitated an exploration expert using frozen visual features from first-person images and its own past actions. At evaluation, it had to navigate unseen mazes. Maps and poses could supply training targets, but the comparisons below gave the agent neither at inference.
 
+[![Two 13×13 maze tasks, each with a top-down reference map and the corresponding first-person view: a yellow interior-goal marker in the earlier task and a daylight opening in the later exit task.](/research/world-maze/environments.svg)](/research/world-maze/environments.svg)
+
+*The two goal designs, re-rendered from saved validation trajectory poses. Blue arrows mark the camera position and heading. The policy received the first-person view, never the reference map. Tap either figure to enlarge.*
+
 ## Remembering where you were helped
 
 In an early 13×13 experiment, adding auxiliary objectives to predict past maps and relative pose raised success from **19.2% to 40.8%**. That comparison used five training seeds and 50 held-out mazes, with the same policy architecture and training budget. The improvement appeared in every seed.
@@ -24,12 +28,9 @@ I then trained a model that wrote its own observations into a persistent spatial
 
 The controlled comparison was to train the same network with memory cleared at every step. Both versions retained the same position-estimation mechanism. Keeping the written memory raised success sharply:
 
-| Model | Exit-task success |
-|---|---:|
-| Sequence policy with a predicted-map feature read | **50.8%** |
-| Sequence policy with memory auxiliary losses | 46.2% |
-| Persistent model-written memory | 43.3% |
-| Same memory architecture, reset each step | 6.2% |
+[![Architecture comparison: sequence context with auxiliary training losses, 46.2% success; sequence context with an attention read of predicted grid features, 50.8%; persistent model-written spatial memory with pooled reads, 43.3%; and the same memory cleared each step, 6.2%.](/research/world-maze/architectures.svg)](/research/world-maze/architectures.svg)
+
+*The strongest policy read grid features predicted from its sequence context. Only the third architecture carried a separately written spatial memory across steps; its reset control retained the same odometry. Dashed branches are training-only losses.*
 
 These are means over three training seeds on **200 fresh confirmation mazes**, using fixed final checkpoints. Persistent minus reset was **+37.2 percentage points**, with a paired maze-bootstrap 95% interval of **[+32.0, +42.5]**. But persistent minus the strongest sequence baseline was **−7.5 points**, with an interval of **[−13.7, −1.7]**. The intervals describe maze uncertainty conditional on those three trained models.
 
@@ -43,4 +44,4 @@ That distinction required checking actual rendered visibility. A simulator marki
 
 The result I am keeping is modest: **memory-related supervision improved a visual policy, and persistent memory improved exploration within one architecture, while a strong sequence model remained better.** I am pausing the project with that conclusion. A further architecture sweep would need to answer a sharper question than whether another variant can score higher.
 
-*Evidence: [per-seed results](/research/world-maze/results.csv) and [paired confirmation outcomes](/research/world-maze/confirmation.json). The earlier study uses five seeds on a repeatedly consulted development set; the exit confirmation uses three seeds and maze IDs 910000–910199. These are results from one synthetic environment, not a general claim about navigation or world models.*
+*Evidence: [per-seed results](/research/world-maze/results.csv), [paired confirmation outcomes](/research/world-maze/confirmation.json), and [figure provenance](/research/world-maze/figures.json). The earlier study uses five seeds on a repeatedly consulted development set; the exit confirmation uses three seeds and maze IDs 910000–910199. These are results from one synthetic environment, not a general claim about navigation or world models.*
