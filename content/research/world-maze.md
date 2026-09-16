@@ -1,6 +1,6 @@
 ---
 title: "What maze navigation taught me about learned memory"
-date: 2026-09-16
+date: 2026-09-10
 summary: "Memory supervision improved navigation, and persistent memory beat a reset control. Neither established that an explicit spatial map was the best model."
 repo: https://github.com/AshisGhosh/world-maze
 icon: compass
