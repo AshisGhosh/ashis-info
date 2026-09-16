@@ -71,11 +71,11 @@ Don't edit infra casually; every CI run applies it.
 - **Don't add dependencies casually.** The bundle is small; new deps need a real reason.
 - **No comments unless the *why* is non-obvious.** Names should carry the *what*.
 
-## Hidden sections (`/research`, `/writing`, `/projects`)
+## Quiet sections (`/research`, `/writing`, `/projects`)
 
-These are **unlinked + noindex**: the homepage does not link to them, and they're excluded from search engines via per-page robots metadata and `public/robots.txt`. Anyone with the URL can still view them.
+Research and projects have small text links beneath the homepage's contact card. Keep this navigation understated. Writing remains unlinked from home. All three sections remain **noindex** via per-page robots metadata and `public/robots.txt`.
 
-Implemented today: `/writing` (index only, all external-link entries) and `/research` (index + `[slug]` post renderer, currently one inline post). `/projects` is not scaffolded yet.
+Implemented today: `/writing` and `/projects` indexes, plus `/research` with an index and `[slug]` post renderer.
 
 ### Frontmatter
 

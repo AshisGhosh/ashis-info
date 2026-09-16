@@ -1,4 +1,5 @@
 import { Github, Linkedin, Newspaper } from "lucide-react"
+import Link from "next/link"
 
 import { ModeToggle } from "@/components/ui/mode-toggle"
 import { FooterDrawer } from "@/components/footer-drawer"
@@ -92,9 +93,27 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="relative z-10">
+      <footer className="relative z-10 flex flex-col items-center">
         <FooterDrawer />
-      </div>
+        <nav
+          aria-label="Research and projects"
+          className="mt-2 flex items-center gap-1 font-mono text-[11px] leading-4 tracking-[0.08em] text-muted-foreground"
+        >
+          <Link
+            href="/research"
+            className="rounded-sm px-2 py-2 transition-colors hover:text-warm focus-visible:text-warm focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-warm"
+          >
+            research
+          </Link>
+          <span aria-hidden="true" className="text-muted-foreground/50">·</span>
+          <Link
+            href="/projects"
+            className="rounded-sm px-2 py-2 transition-colors hover:text-warm focus-visible:text-warm focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-2 focus-visible:outline-warm"
+          >
+            projects
+          </Link>
+        </nav>
+      </footer>
     </main>
   )
 }
